@@ -1,17 +1,31 @@
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import CSS for toast
-import axios from "axios"; // Make sure you have axios installed
 
 const BookItem = ({ book, onDelete }) => {
   const handleDelete = async (e) => {
     e.preventDefault();
-    
     try {
-      // Trigger the delete API call
-      await onDelete(book._id); // Call the parent's onDelete function
-      
+      // Call the onDelete function with the book ID
+      await onDelete(book._id);
+      toast.success("Book successfully deleted!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+      });
     } catch (error) {
-      
+      toast.error("Failed to delete the book. Please try again.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+      });
     }
   };
 
@@ -35,3 +49,4 @@ const BookItem = ({ book, onDelete }) => {
 };
 
 export default BookItem;
+
