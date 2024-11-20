@@ -28,11 +28,17 @@ exports.addBook = async (req, res) => {
 };
 
 // Delete a book by ID
+// Delete a book by ID
 exports.deleteBook = async (req, res) => {
   try {
-    await Book.findByIdAndDelete(req.params.id);
-    res.status(204).send();
+    const book = await Book.findById(req.params._id);
+    if (!book) {
+      return res.status(404).json({ error: "Book not found" });
+    }
+
+    await Book.findByIdAndDelete(req.params._id);
+    res.status(200).json({ message: "Book deleted successfully" });
   } catch (err) {
-    res.status(500).json({ error: "Failed to delete book" });
+    res.status(500).json({ error: "Failed to delete book", details: err.message });
   }
 };

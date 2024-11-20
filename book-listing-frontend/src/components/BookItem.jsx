@@ -1,30 +1,17 @@
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import CSS for toast
+import axios from "axios"; // Make sure you have axios installed
 
 const BookItem = ({ book, onDelete }) => {
-  const handleDelete = async () => {
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    
     try {
-      // Call the onDelete function with the book ID
-      await onDelete(book._id);
-      toast.success("Book successfully deleted!", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "light",
-      });
+      // Trigger the delete API call
+      await onDelete(book._id); // Call the parent's onDelete function
+      
     } catch (error) {
-      toast.error("Failed to delete the book. Please try again.", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "light",
-      });
+      
     }
   };
 
@@ -48,28 +35,3 @@ const BookItem = ({ book, onDelete }) => {
 };
 
 export default BookItem;
-
-// import React from "react";
-
-// const BookItem = ({ book, onDelete }) => {
-//   const handleDelete = () => {
-//     onDelete(book._id); // Trigger delete in the parent
-//   };
-
-//   return (
-//     <div className="p-4 bg-white rounded-lg shadow">
-//       <h3 className="text-xl font-bold">{book.title}</h3>
-//       <p className="text-gray-700">Author: {book.author}</p>
-//       <p className="text-gray-500 mt-2">{book.description}</p>
-//       <button
-//         onClick={handleDelete}
-//         className="mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-//       >
-//         Delete
-//       </button>
-//     </div>
-//   );
-// };
-
-// export default BookItem;
-
